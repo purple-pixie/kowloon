@@ -1,0 +1,189 @@
+[gd_scene load_steps=12 format=3 uid="uid://ci3fdxusdd121"]
+
+[ext_resource type="Script" path="res://rolling_controller.gd" id="1_7vc8n"]
+[ext_resource type="PhysicsMaterial" uid="uid://bkq7ny712ii8b" path="res://wall.tres" id="2_k5s1g"]
+[ext_resource type="Script" path="res://rules_logic.gd" id="2_pb7fv"]
+[ext_resource type="Script" path="res://camera_control.gd" id="4_vsenc"]
+[ext_resource type="PackedScene" uid="uid://cegh3krdkfhpx" path="res://die_rolling.tscn" id="6_mdr4j"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_673fp"]
+size = Vector3(28, 20, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sptqb"]
+size = Vector3(28, 28, 2)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ghswx"]
+bounce = 0.03
+absorbent = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nx5fd"]
+size = Vector3(30, 2, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_60qrj"]
+size = Vector3(30, 2, 30)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mch1v"]
+render_priority = 1
+albedo_color = Color(0.160784, 0.258824, 0.380392, 1)
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(0.999668, 0, -0.0257757, 0, 1, 0, 0.0257757, 0, 0.999668, 0, 0, 0)
+script = ExtResource("1_7vc8n")
+
+[node name="RulesLogic" type="Node" parent="."]
+script = ExtResource("2_pb7fv")
+
+[node name="Buttons" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 1151.0
+offset_bottom = 641.0
+mouse_filter = 1
+
+[node name="RightSide" type="Control" parent="Buttons"]
+anchors_preset = 0
+offset_left = 854.0
+offset_top = 28.0
+offset_right = 1144.0
+offset_bottom = 634.0
+mouse_filter = 1
+
+[node name="KeepMeldButton" type="Button" parent="Buttons/RightSide"]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 154.0
+offset_right = 232.0
+offset_bottom = 210.0
+action_mode = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = "Keep Meld"
+
+[node name="KeepHandButton" type="Button" parent="Buttons/RightSide"]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 255.0
+offset_right = 232.0
+offset_bottom = 311.0
+action_mode = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = "Keep Hand
+"
+
+[node name="UndoButton" type="Button" parent="Buttons/RightSide"]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 347.0
+offset_right = 232.0
+offset_bottom = 403.0
+action_mode = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = "Undo"
+
+[node name="RollButton" type="Button" parent="Buttons"]
+layout_mode = 0
+offset_left = 453.0
+offset_top = 488.0
+offset_right = 630.0
+offset_bottom = 600.0
+theme_override_font_sizes/font_size = 48
+action_mode = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = "Roll"
+
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="Side1" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -15)
+input_ray_pickable = false
+physics_material_override = ExtResource("2_k5s1g")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Walls/Side1"]
+shape = SubResource("BoxShape3D_673fp")
+
+[node name="Side2" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, 10, 0)
+input_ray_pickable = false
+physics_material_override = ExtResource("2_k5s1g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Side2"]
+shape = SubResource("BoxShape3D_673fp")
+
+[node name="Side3" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 15)
+input_ray_pickable = false
+physics_material_override = ExtResource("2_k5s1g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Side3"]
+shape = SubResource("BoxShape3D_673fp")
+
+[node name="Side4" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 10, 0)
+input_ray_pickable = false
+physics_material_override = ExtResource("2_k5s1g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Side4"]
+shape = SubResource("BoxShape3D_673fp")
+
+[node name="ceiling" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0, 20.9604, 0)
+input_ray_pickable = false
+physics_material_override = ExtResource("2_k5s1g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/ceiling"]
+shape = SubResource("BoxShape3D_sptqb")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_priority = 100.0
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_ghswx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_nx5fd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_60qrj")
+surface_material_override/0 = SubResource("StandardMaterial3D_mch1v")
+
+[node name="Dice" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0792387, 1.54275, -3.07314)
+
+[node name="Die1" parent="Dice" instance=ExtResource("6_mdr4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0506, 0.6, 1.03413)
+
+[node name="Die2" parent="Dice" instance=ExtResource("6_mdr4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.55062, 0.6, 1.03413)
+
+[node name="Die3" parent="Dice" instance=ExtResource("6_mdr4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.05062, 0.6, 0.935128)
+
+[node name="Die4" parent="Dice" instance=ExtResource("6_mdr4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0506, 0.6, 5.03413)
+
+[node name="Die5" parent="Dice" instance=ExtResource("6_mdr4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.55062, 0.6, 5.03413)
+
+[node name="Die6" parent="Dice" instance=ExtResource("6_mdr4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.05062, 0.6, 5.03413)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.888556, 0.354576, -0.291108, 3.72529e-09, 0.634543, 0.772888, 0.458768, -0.686754, 0.563827, -7.67983, 23.9041, 19.1825)
+fov = 57.3
+script = ExtResource("4_vsenc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
+
+[connection signal="pressed" from="Buttons/RightSide/KeepMeldButton" to="." method="_on_keep_meld_button_pressed"]
+[connection signal="pressed" from="Buttons/RightSide/KeepHandButton" to="." method="_on_keep_hand_button_pressed"]
+[connection signal="pressed" from="Buttons/RightSide/UndoButton" to="." method="_on_undo_button_pressed"]
+[connection signal="pressed" from="Buttons/RollButton" to="." method="_on_roll_button_pressed"]

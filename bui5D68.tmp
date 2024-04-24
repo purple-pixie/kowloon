@@ -1,0 +1,259 @@
+[gd_scene load_steps=9 format=3 uid="uid://b01t6ilf0wpfc"]
+
+[ext_resource type="Script" path="res://building_controller.gd" id="1_qstv2"]
+[ext_resource type="Script" path="res://camera_control.gd" id="2_cg1df"]
+[ext_resource type="Texture2D" uid="uid://cxob1n02yl5uj" path="res://square.png" id="3_60tco"]
+[ext_resource type="Script" path="res://testing.gd" id="4_182dd"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rrc2f"]
+bounce = 0.03
+absorbent = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1u4j8"]
+size = Vector3(15, 2, 15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vs3es"]
+size = Vector3(18, 2, 18)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o60k0"]
+albedo_color = Color(0.160784, 0.258824, 0.380392, 1)
+
+[node name="Board" type="Node3D"]
+script = ExtResource("1_qstv2")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_rrc2f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_1u4j8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.493248, 0, -1.01079)
+mesh = SubResource("BoxMesh_vs3es")
+surface_material_override/0 = SubResource("StandardMaterial3D_o60k0")
+
+[node name="Label" type="Label" parent="Floor"]
+offset_right = 108.0
+offset_bottom = 63.0
+text = "hello
+"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.888557, 0.376007, -0.262844, 0, 0.572934, 0.819601, 0.458769, -0.728261, 0.509084, -7.67342, 23.9273, 14.8621)
+fov = 57.3
+script = ExtResource("2_cg1df")
+
+[node name="Dice" type="Node3D" parent="."]
+
+[node name="Squares" type="Node3D" parent="."]
+
+[node name="square_1-1" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -6, 1.01, -6)
+texture = ExtResource("3_60tco")
+
+[node name="label_col_1" type="Label3D" parent="Squares/square_1-1"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -3.2, 0)
+text = "1"
+font_size = 256
+
+[node name="label_row_1" type="Label3D" parent="Squares/square_1-1"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -2, 0, 0)
+text = "1"
+font_size = 256
+
+[node name="square_2-1" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -6, 1.01, -3.6)
+texture = ExtResource("3_60tco")
+
+[node name="label_row_2" type="Label3D" parent="Squares/square_2-1"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -2, 0, 0)
+text = "2"
+font_size = 256
+
+[node name="square_3-1" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -6, 1.01, -1.2)
+texture = ExtResource("3_60tco")
+
+[node name="label_row_3" type="Label3D" parent="Squares/square_3-1"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -2, 0, 0)
+text = "3"
+font_size = 256
+
+[node name="square_4-1" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -6, 1.01, 1.2)
+texture = ExtResource("3_60tco")
+
+[node name="label_row_4" type="Label3D" parent="Squares/square_4-1"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -2, 0, 0)
+text = "4"
+font_size = 256
+
+[node name="square_5-1" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -6, 1.01, 3.6)
+texture = ExtResource("3_60tco")
+
+[node name="label_row_5" type="Label3D" parent="Squares/square_5-1"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -2, 0, 0)
+text = "5"
+font_size = 256
+
+[node name="square_6-1" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -6, 1.01, 6)
+texture = ExtResource("3_60tco")
+
+[node name="label_row_6" type="Label3D" parent="Squares/square_6-1"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -2, 0, 0)
+text = "6"
+font_size = 256
+
+[node name="square_1-2" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -3.6, 1.01, -6)
+texture = ExtResource("3_60tco")
+
+[node name="label_col_2" type="Label3D" parent="Squares/square_1-2"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -3.2, 0)
+text = "2"
+font_size = 256
+
+[node name="square_2-2" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -3.6, 1.01, -3.6)
+texture = ExtResource("3_60tco")
+
+[node name="square_3-2" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -3.6, 1.01, -1.2)
+texture = ExtResource("3_60tco")
+
+[node name="square_4-2" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -3.6, 1.01, 1.2)
+texture = ExtResource("3_60tco")
+
+[node name="square_5-2" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -3.6, 1.01, 3.6)
+texture = ExtResource("3_60tco")
+
+[node name="square_6-2" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -3.6, 1.01, 6)
+texture = ExtResource("3_60tco")
+
+[node name="square_1-3" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.2, 1.01, -6)
+texture = ExtResource("3_60tco")
+
+[node name="label_col_3" type="Label3D" parent="Squares/square_1-3"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -3.2, 0)
+text = "3"
+font_size = 256
+
+[node name="square_2-3" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.2, 1.01, -3.6)
+texture = ExtResource("3_60tco")
+
+[node name="square_3-3" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.2, 1.01, -1.2)
+texture = ExtResource("3_60tco")
+
+[node name="square_4-3" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.2, 1.01, 1.2)
+texture = ExtResource("3_60tco")
+
+[node name="square_5-3" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.2, 1.01, 3.6)
+texture = ExtResource("3_60tco")
+
+[node name="square_6-3" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.2, 1.01, 6)
+texture = ExtResource("3_60tco")
+
+[node name="square_1-4" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.2, 1.01, -6)
+texture = ExtResource("3_60tco")
+
+[node name="label_col_4" type="Label3D" parent="Squares/square_1-4"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -3.2, 0)
+text = "4"
+font_size = 256
+
+[node name="square_2-4" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.2, 1.01, -3.6)
+texture = ExtResource("3_60tco")
+
+[node name="square_3-4" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.2, 1.01, -1.2)
+texture = ExtResource("3_60tco")
+
+[node name="square_4-4" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.2, 1.01, 1.2)
+texture = ExtResource("3_60tco")
+
+[node name="square_5-4" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.2, 1.01, 3.6)
+texture = ExtResource("3_60tco")
+
+[node name="square_6-4" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.2, 1.01, 6)
+texture = ExtResource("3_60tco")
+
+[node name="square_1-5" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.6, 1.01, -6)
+texture = ExtResource("3_60tco")
+
+[node name="label_col_5" type="Label3D" parent="Squares/square_1-5"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -3.2, 0)
+text = "5"
+font_size = 256
+
+[node name="square_2-5" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.6, 1.01, -3.6)
+texture = ExtResource("3_60tco")
+
+[node name="square_3-5" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.6, 1.01, -1.2)
+texture = ExtResource("3_60tco")
+
+[node name="square_4-5" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.6, 1.01, 1.2)
+texture = ExtResource("3_60tco")
+
+[node name="square_5-5" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.6, 1.01, 3.6)
+texture = ExtResource("3_60tco")
+
+[node name="square_6-5" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.6, 1.01, 6)
+texture = ExtResource("3_60tco")
+
+[node name="square_1-6" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6, 1.01, -6)
+texture = ExtResource("3_60tco")
+
+[node name="label_col_6" type="Label3D" parent="Squares/square_1-6"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -3.2, 0)
+text = "6"
+font_size = 256
+
+[node name="square_2-6" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6, 1.01, -3.6)
+texture = ExtResource("3_60tco")
+
+[node name="square_3-6" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6, 1.01, -1.2)
+texture = ExtResource("3_60tco")
+
+[node name="square_4-6" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6, 1.01, 1.2)
+texture = ExtResource("3_60tco")
+
+[node name="square_5-6" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6, 1.01, 3.6)
+texture = ExtResource("3_60tco")
+
+[node name="square_6-6" type="Sprite3D" parent="Squares"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6, 1.01, 6)
+texture = ExtResource("3_60tco")
+
+[node name="Node" type="Node" parent="." node_paths=PackedStringArray("controller")]
+script = ExtResource("4_182dd")
+controller = NodePath("..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.129782, 0, -0.991543, 0, 1, 0, 0.991543, 0, 0.129782, -20.4186, 17.4308, 20.9699)

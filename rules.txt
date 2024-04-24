@@ -1,0 +1,65 @@
+roll 6
+
+picking up
+pairs+
+runs >=3
+
+placing
+place on either matching axis
+place on lowest z possible
+
+scoring
+complete line
+triple for all matching or a run 1-6
+diagonals score only if perfect 1-6
+
+outside lines score the outside pips also
+
+===========================
+at most 3 distinct sets
+"best pick" option (most dice)
+
+
+
+check for 2 runs
+	get first run up to 3
+	if second run, that's all 6 so ship it
+	else check for any remaining pairs
+	
+if not found 6:
+	for each run (starting from 2)
+	
+---------
+every possible case:
+	run of 6 - done
+	run of 5 - consider as (either of 2 different) run of 4
+	run of 4 - could be 4-run + 2-set
+		could be 2x run of 3
+		could be (either of 2 different) 3-run + 2-set (better than just 4-run)
+		couild be an equally-sized but more usable 2x 2-set
+	run of 3 - could be 2x run of 3
+	
+	after no six found including a run:
+		sextext ez return 6
+		5-set ez return 5
+		4-set, check for 4+2, else return 4
+		3-set, check for 2x 3-set or 3 + 2 return best
+		2-set, check for 2x or 3x pair, return best
+------------
+queries:
+is placing optional no, but can take whatever melds so long as remaining dice
+	leave no melds behind
+maximum dice (if toppling not viable) = 216
+---------------
+
+
+2 + 3
+
+11 222 3
+
+1,1,3,4,5,5
+1,1,2,3,4,4
+1,2,2,3,3,4
+1,2,3,3,4,4
+1,1,2,3,3,4
+1,2,2,3,3,4

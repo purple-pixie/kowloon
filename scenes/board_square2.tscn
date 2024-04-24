@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://bweq60m8wey5u"]
+
+[ext_resource type="Texture2D" uid="uid://byt46qcetgg60" path="res://resources/square.png" id="1_hwpko"]
+[ext_resource type="Script" path="res://scripts/board_square.gd" id="2_rfs0k"]
+[ext_resource type="Shape3D" uid="uid://cn2xaedlg7bk6" path="res://resources/box_shape_square.tres" id="3_anxl2"]
+
+[node name="BoardSquare" type="Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+texture = ExtResource("1_hwpko")
+script = ExtResource("2_rfs0k")
+
+[node name="CollisionArea" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="Shape3D" type="CollisionShape3D" parent="CollisionArea"]
+shape = ExtResource("3_anxl2")
+
+[node name="LabelRow" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -2.29926, -6.99162e-05, 3.05614e-12)
+text = "1"
+font_size = 320
+
+[node name="LabelCol" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.0283754, -2.74923, 1.20173e-07)
+text = "1"
+font_size = 320
+
+[connection signal="mouse_entered" from="CollisionArea" to="." method="_on_collision_area_mouse_entered"]

@@ -1,0 +1,264 @@
+[gd_scene load_steps=12 format=3 uid="uid://b01t6ilf0wpfc"]
+
+[ext_resource type="Script" path="res://scripts/building_controller.gd" id="1_qstv2"]
+[ext_resource type="Script" path="res://scripts/camera_control.gd" id="2_cg1df"]
+[ext_resource type="Script" path="res://scripts/testing.gd" id="4_182dd"]
+[ext_resource type="PackedScene" uid="uid://3n1dtswwjahr" path="res://scenes/board_square.tscn" id="4_sn2wo"]
+[ext_resource type="PackedScene" uid="uid://d3sr5qn0kyql" path="res://scenes/die_placing.tscn" id="5_lqnap"]
+[ext_resource type="PackedScene" uid="uid://ggk8n4rihvu1" path="res://scenes/die_ghost.tscn" id="6_o7rj6"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rrc2f"]
+bounce = 0.03
+absorbent = true
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_w0ktq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1u4j8"]
+size = Vector3(15, 2, 15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vs3es"]
+size = Vector3(18, 2, 18)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o60k0"]
+albedo_color = Color(0.160784, 0.258824, 0.380392, 1)
+
+[node name="Board" type="Node3D"]
+script = ExtResource("1_qstv2")
+
+[node name="Floor2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6708, 0, 0)
+collision_layer = 16
+collision_mask = 16
+physics_material_override = SubResource("PhysicsMaterial_rrc2f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2975, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_w0ktq")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_rrc2f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_1u4j8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.493248, 0, -1.01079)
+mesh = SubResource("BoxMesh_vs3es")
+surface_material_override/0 = SubResource("StandardMaterial3D_o60k0")
+
+[node name="BoardCam" type="Camera3D" parent="."]
+transform = Transform3D(0.888556, 0.354577, -0.291108, 3.72529e-09, 0.634543, 0.772888, 0.458768, -0.686754, 0.563827, -7.67983, 24.3425, 14.8745)
+fov = 57.3
+script = ExtResource("2_cg1df")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="BoardCam"]
+
+[node name="MouseCast" type="RayCast3D" parent="BoardCam"]
+target_position = Vector3(10, 0, 0)
+collision_mask = 16
+
+[node name="Dice" type="Node3D" parent="."]
+
+[node name="Squares" type="Node3D" parent="."]
+
+[node name="square_1-1" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -6, 1.01, -6)
+
+[node name="square_1-2" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -3.6, 1.01, -6)
+col = 2
+
+[node name="square_1-3" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.2, 1.01, -6)
+col = 3
+
+[node name="square_1-4" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.2, 1.01, -6)
+col = 4
+
+[node name="square_1-5" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.6, 1.01, -6)
+col = 5
+
+[node name="square_1-6" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6, 1.01, -6)
+col = 6
+
+[node name="square_2-1" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -6, 1.01, -3.6)
+row = 2
+
+[node name="square_2-2" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -3.6, 1.01, -3.6)
+row = 2
+col = 2
+
+[node name="square_2-3" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.2, 1.01, -3.6)
+row = 2
+col = 3
+
+[node name="square_2-4" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.2, 1.01, -3.6)
+row = 2
+col = 4
+
+[node name="square_2-5" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.6, 1.01, -3.6)
+row = 2
+col = 5
+
+[node name="square_2-6" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6, 1.01, -3.6)
+row = 2
+col = 6
+
+[node name="square_3-1" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -6, 1.01, -1.2)
+row = 3
+
+[node name="square_3-2" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -3.6, 1.01, -1.2)
+row = 3
+col = 2
+
+[node name="square_3-3" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.2, 1.01, -1.2)
+row = 3
+col = 3
+
+[node name="square_3-4" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.2, 1.01, -1.2)
+row = 3
+col = 4
+
+[node name="square_3-5" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.6, 1.01, -1.2)
+row = 3
+col = 5
+
+[node name="square_3-6" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6, 1.01, -1.2)
+row = 3
+col = 6
+
+[node name="square_4-1" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -6, 1.01, 1.2)
+row = 4
+
+[node name="square_4-2" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -3.6, 1.01, 1.2)
+row = 4
+col = 2
+
+[node name="square_4-3" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.2, 1.01, 1.2)
+row = 4
+col = 3
+
+[node name="square_4-4" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.2, 1.01, 1.2)
+row = 4
+col = 4
+
+[node name="square_4-5" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.6, 1.01, 1.2)
+row = 4
+col = 5
+
+[node name="square_4-6" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6, 1.01, 1.2)
+row = 4
+col = 6
+
+[node name="square_5-1" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -6, 1.01, 3.6)
+row = 5
+
+[node name="square_5-2" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -3.6, 1.01, 3.6)
+row = 5
+col = 2
+
+[node name="square_5-3" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.2, 1.01, 3.6)
+row = 5
+col = 3
+
+[node name="square_5-4" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.2, 1.01, 3.6)
+row = 5
+col = 4
+
+[node name="square_5-5" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.6, 1.01, 3.6)
+row = 5
+col = 5
+
+[node name="square_5-6" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6, 1.01, 3.6)
+row = 5
+col = 6
+
+[node name="square_6-1" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -6, 1.01, 6)
+row = 6
+
+[node name="square_6-2" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -3.6, 1.01, 6)
+row = 6
+col = 2
+
+[node name="square_6-3" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.2, 1.01, 6)
+row = 6
+col = 3
+
+[node name="square_6-4" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.2, 1.01, 6)
+row = 6
+col = 4
+
+[node name="square_6-5" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.6, 1.01, 6)
+row = 6
+col = 5
+
+[node name="square_6-6" parent="Squares" instance=ExtResource("4_sn2wo")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 6, 1.01, 6)
+row = 6
+col = 6
+
+[node name="Node" type="Node" parent="." node_paths=PackedStringArray("controller")]
+script = ExtResource("4_182dd")
+controller = NodePath("..")
+
+[node name="Hand" type="Node3D" parent="."]
+
+[node name="Die1" parent="Hand" instance=ExtResource("5_lqnap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6714, 0, -8.29683)
+face = 3.0
+
+[node name="Die2" parent="Hand" instance=ExtResource("5_lqnap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6714, 0, -5.29683)
+face = 3.0
+
+[node name="Die3" parent="Hand" instance=ExtResource("5_lqnap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6714, 0, -2.29683)
+face = 3.0
+
+[node name="Die4" parent="Hand" instance=ExtResource("5_lqnap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6714, 0, 0.703172)
+face = 3.0
+
+[node name="Die5" parent="Hand" instance=ExtResource("5_lqnap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6714, 0, 3.70317)
+face = 3.0
+
+[node name="Die6" parent="Hand" instance=ExtResource("5_lqnap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6714, 0, 6.70317)
+face = 3.0
+
+[node name="Ghost" parent="." instance=ExtResource("6_o7rj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 2.2, 6)
+visible = false

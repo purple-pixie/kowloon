@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://btuntagahvg0k"]
+
+[ext_resource type="PackedScene" uid="uid://b01t6ilf0wpfc" path="res://scenes/building.tscn" id="1_m2387"]
+[ext_resource type="Script" path="res://scripts/world_controller.gd" id="1_ydfus"]
+[ext_resource type="PackedScene" uid="uid://ci3fdxusdd121" path="res://scenes/rolling.tscn" id="2_08wks"]
+[ext_resource type="Script" path="res://scripts/camera_control.gd" id="3_gh0wc"]
+
+[node name="WorldController" type="Node3D"]
+script = ExtResource("1_ydfus")
+
+[node name="Board" parent="." instance=ExtResource("1_m2387")]
+
+[node name="Rolling" parent="." instance=ExtResource("2_08wks")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.888556, 0.354576, -0.291108, 3.72529e-09, 0.634543, 0.772888, 0.458768, -0.686754, 0.563827, -7.67983, 23.9041, 19.1825)
+current = true
+fov = 57.3
+script = ExtResource("3_gh0wc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]

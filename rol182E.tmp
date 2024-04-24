@@ -1,0 +1,135 @@
+[gd_scene load_steps=12 format=3 uid="uid://ci3fdxusdd121"]
+
+[ext_resource type="Script" path="res://World.gd" id="1_7vc8n"]
+[ext_resource type="PhysicsMaterial" uid="uid://bkq7ny712ii8b" path="res://wall.tres" id="2_k5s1g"]
+[ext_resource type="PackedScene" uid="uid://bwqiml2cr2esg" path="res://die_rolling.tscn" id="3_6gvm3"]
+[ext_resource type="Script" path="res://testing.gd" id="4_ogy8e"]
+[ext_resource type="Script" path="res://BuildingController.gd" id="5_wqw4c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_673fp"]
+size = Vector3(60, 20, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6t3th"]
+size = Vector3(60, 20, 2)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ghswx"]
+bounce = 0.03
+absorbent = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nx5fd"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_60qrj"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mch1v"]
+albedo_color = Color(0.160784, 0.258824, 0.380392, 1)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_7vc8n")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.993187, 0.113943, 0.024442, -0.0242659, -0.00293269, 0.999701, 0.11398, -0.993483, -0.000147779, 11.2366, 45.9161, 12.7563)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.691563, 0.722316, 0, -0.722316, 0.691563, 4.94826, 54.9095, 41.6995)
+fov = 47.9
+near = 0.004
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.596, 55.05, -0.462)
+current = true
+fov = 61.5
+near = 0.004
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.9217, 0)
+
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="Side1" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -29)
+visible = false
+physics_material_override = ExtResource("2_k5s1g")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Walls/Side1"]
+shape = SubResource("BoxShape3D_673fp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Side1"]
+mesh = SubResource("BoxMesh_6t3th")
+
+[node name="Side2" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 29, 10, 0)
+visible = false
+physics_material_override = ExtResource("2_k5s1g")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Side2"]
+mesh = SubResource("BoxMesh_6t3th")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Side2"]
+shape = SubResource("BoxShape3D_673fp")
+
+[node name="Side3" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 29)
+visible = false
+physics_material_override = ExtResource("2_k5s1g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Side3"]
+shape = SubResource("BoxShape3D_673fp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Side3"]
+mesh = SubResource("BoxMesh_6t3th")
+
+[node name="Side4" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -29, 10, 0)
+visible = false
+physics_material_override = ExtResource("2_k5s1g")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Side4"]
+mesh = SubResource("BoxMesh_6t3th")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Side4"]
+shape = SubResource("BoxShape3D_673fp")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_ghswx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_nx5fd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_60qrj")
+surface_material_override/0 = SubResource("StandardMaterial3D_mch1v")
+
+[node name="Dice" type="Node3D" parent="."]
+
+[node name="Die" parent="Dice" instance=ExtResource("3_6gvm3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0626131, 3.8056, 0.0959483)
+gravity_scale = 1.5
+
+[node name="Die2" parent="Dice" instance=ExtResource("3_6gvm3")]
+transform = Transform3D(1, 0, 0, 0, -0.0922837, -0.995733, 0, 0.995733, -0.0922837, 0.0932491, 3.28571, 5.48586)
+gravity_scale = 1.5
+
+[node name="Die3" parent="Dice" instance=ExtResource("3_6gvm3")]
+transform = Transform3D(1, 0, 0, 0, -0.0922837, -0.995733, 0, 0.995733, -0.0922837, 0.0932491, 3.28571, -2.27363)
+gravity_scale = 1.5
+
+[node name="Die4" parent="Dice" instance=ExtResource("3_6gvm3")]
+transform = Transform3D(1, 0, 0, 0, -0.0922837, -0.995733, 0, 0.995733, -0.0922837, -7.06683, 3.28571, 5.48586)
+gravity_scale = 1.5
+
+[node name="Die5" parent="Dice" instance=ExtResource("3_6gvm3")]
+transform = Transform3D(1, 0, 0, 0, -0.0922837, -0.995733, 0, 0.995733, -0.0922837, 7.61428, 3.28571, 1.63755)
+gravity_scale = 1.5
+
+[node name="Die6" parent="Dice" instance=ExtResource("3_6gvm3")]
+transform = Transform3D(1, 0, 0, 0, -0.0922837, -0.995733, 0, 0.995733, -0.0922837, 5.51627, 3.28571, 6.65924)
+gravity_scale = 1.5
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("4_ogy8e")
+
+[node name="BuildingController" type="Node3D" parent="."]
+script = ExtResource("5_wqw4c")

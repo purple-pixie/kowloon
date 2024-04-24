@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://ggk8n4rihvu1"]
+
+[sub_resource type="Shader" id="Shader_tqio6"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.2.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded;
+instance uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+uniform float point_size : hint_range(0,128);
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_linear_mipmap,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r,filter_linear_mipmap,repeat_enable;
+uniform float specular;
+uniform float metallic;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
+	float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	SPECULAR = specular;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3qwt8"]
+render_priority = 0
+shader = SubResource("Shader_tqio6")
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1skag"]
+_surfaces = [{
+"aabb": AABB(-1.0866, -1.0866, -1.0866, 2.17321, 2.17322, 2.17322),
+"attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 171, 170, 42, 63, 0, 0, 0, 0, 171, 170, 170, 62, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 171, 170, 42, 63, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 171, 170, 42, 63, 0, 0, 0, 0, 171, 170, 170, 62, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 128, 63, 171, 170, 42, 63, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 128, 63, 171, 170, 170, 62, 0, 0, 0, 63, 171, 170, 42, 63, 0, 0, 0, 63, 171, 170, 42, 63, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 128, 63, 171, 170, 42, 63, 0, 0, 128, 63, 171, 170, 42, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 4, 0, 2, 0, 2, 0, 4, 0, 6, 0, 1, 0, 5, 0, 3, 0, 3, 0, 5, 0, 7, 0, 8, 0, 12, 0, 10, 0, 10, 0, 12, 0, 14, 0, 9, 0, 13, 0, 11, 0, 11, 0, 13, 0, 15, 0, 16, 0, 20, 0, 18, 0, 18, 0, 20, 0, 22, 0, 17, 0, 21, 0, 19, 0, 19, 0, 21, 0, 23, 0),
+"material": SubResource("ShaderMaterial_3qwt8"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray(203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 63, 203, 21, 139, 191, 203, 21, 139, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 0, 0, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 0, 0, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 0, 0, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 0, 0, 255, 191, 255, 255, 0, 128, 255, 255, 255, 255, 0, 0, 0, 128, 255, 127, 255, 191, 255, 255, 0, 128, 255, 255, 255, 255, 0, 0, 0, 128, 255, 127, 255, 191, 255, 255, 0, 128, 255, 255, 255, 255, 0, 0, 0, 128, 255, 127, 255, 191, 255, 255, 0, 128, 255, 255, 255, 255, 0, 0, 0, 128, 255, 127, 255, 191, 0, 128, 255, 255, 0, 0, 255, 191, 0, 128, 0, 0, 255, 255, 255, 191, 0, 128, 255, 255, 0, 0, 255, 191, 0, 128, 0, 0, 255, 255, 255, 191, 0, 128, 255, 255, 0, 0, 255, 191, 0, 128, 0, 0, 255, 255, 255, 191, 0, 128, 255, 255, 0, 0, 255, 191, 0, 128, 0, 0, 255, 255, 255, 191)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rttkh"]
+shading_mode = 0
+albedo_color = Color(0.0901961, 0.768627, 1, 1)
+
+[node name="Ghost" type="Node3D"]
+
+[node name="outline" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_1skag")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_rttkh")
